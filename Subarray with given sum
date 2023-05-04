@@ -1,0 +1,30 @@
+class Solution
+{
+    public:
+    //Function to find a continuous sub-array which adds up to a given number.
+    vector<int> subarraySum(int arr[], int n, long long s)
+    {
+        int currsum=arr[0];
+        int end=1, start=0;
+        
+        for(end=1 ; end<=n ; end++) {
+            
+            while(currsum>s && start<end-1) {
+                
+                currsum -= arr[start];
+                start++;
+            }
+            
+            if(currsum == s) {
+                return {start+1, end};
+            }
+            
+            if(end < n) {
+                currsum += arr[end];
+            }
+            
+        }
+        
+        return {-1};
+    }
+};
