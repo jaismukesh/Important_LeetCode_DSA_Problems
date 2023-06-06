@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool canMakeArithmeticProgression(vector<int>& arr) {
+        int n=arr.size();
+        
+        //METHOD 1: USING SORT STL
+
+        // sort(arr.begin(),arr.end());
+        // int diff=arr[1]-arr[0];
+        // for(int i=2;i<n;i++){
+        //     if(arr[i]-arr[i-1]!=diff){
+        //         return false;
+        //     }
+            
+        // }
+        // return true;
+
+//METHOD 2: USING THE UNORDERED SET
+    unordered_set<int>st(arr.begin(),arr.end());
+     int min_ele=*min_element(arr.begin(),arr.end());
+     int max_ele=*max_element(arr.begin(),arr.end());
+
+     if((max_ele -min_ele)%(n-1)!=0)
+     return false;
+
+     int d=(max_ele-min_ele)/(n-1);
+
+     int i=0;
+     while(i<n){
+         int num=min_ele+i*d;
+         if(st.find(num)==st.end()){
+         return false;
+         }
+         ++i;
+     }
+     return true;
+    }
+};
