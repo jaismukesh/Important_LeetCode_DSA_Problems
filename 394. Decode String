@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        ios_base::sync_with_stdio(false);
+        stack<char> st;
+        string curr = "";
+        for(int i=s.length()-1;i>=0;i--){
+            if(s[i]=='['){
+                string k = "";
+                i--;
+                while(i>=0 && (int)s[i]>=48 && (int)s[i]<=57){
+                    k.push_back(s[i]);
+                    i--;
+                }
+                reverse(k.begin(),k.end());
+                int num = stoi(k);
+                curr="";
+                while(!st.empty() && st.top()!=']'){
+                    curr.push_back(st.top());
+                    st.pop();
+                }
+                st.pop();
+                while(num--){
+                    for(int j=curr.length()-1;j>=0;j--){
+                        st.push(curr[j]);
+                    }
+                }
+                i++;
+                curr="";
+            }
+            else if(s[i]==']'){
+                st.push(s[i]);
+            }
+            else{
+                st.push(s[i]);
+            }
+        }
+        s="";
+        while(!st.empty()){
+            s.push_back(st.top());
+            st.pop();
+        }
+        return s;
+    }
+};
