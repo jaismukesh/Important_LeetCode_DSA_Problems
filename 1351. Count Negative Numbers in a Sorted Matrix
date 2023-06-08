@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+
+        //METHOD-1
+
+    //     int m=grid.size(), n=grid[0].size(), i=m-1, j=0;
+	// 	// to start from the grid[m-1][0] position
+    //     int count=0;
+        
+    //     while(i>=0 && i<m && j>=0 && j<n){
+    //         if(grid[i][j] < 0){
+    //             count = count + (n-j); //when the first occurrence of a number in a row is -ve, all following numbers will be -ve. So, add their count.
+    //             i=i-1; //then move to the above row
+    //         }
+    //         else{
+    //             j=j+1; //else move to the right (i.e. to the next column)
+    //         }
+                
+    //     }       
+        
+    //     return count;
+    // }
+
+
+//METHOD-2 BY USING BINARY SEARCH STL FUNCTION
+    int n = grid.size();
+        int ans = 0;
+
+        for(int i=0;i<n;i++){
+            int ub = upper_bound(grid[i].rbegin(),grid[i].rend(),-1) - grid[i].rbegin();
+
+            ans += ub;
+        }
+        
+        return ans;
+    }
+};
