@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int>dq;
+        vector<int>ans;
+    
+    //first winddow process 
+    for(int i=0;i<k;i++){
+        //remove smaller value  from the queue
+
+        while((!dq.empty()) &&( nums[i]>=nums[dq.back()])){
+            dq.pop_back();
+        }
+
+        //push the maximum elemnt ka index of first k window
+        dq.push_back(i);
+    }
+// store ans of first window of k size
+    ans.push_back(nums[dq.front()]);
+
+    for(int i=k;i<nums.size();i++){
+        // remove of of window element
+        if( !dq.empty() && i-dq.front()>=k){
+            dq.pop_front();
+        }
+        //abb current element ke liye firse smaller eleemnt ko remove krenge 
+        while((!dq.empty()) &&( nums[i]>=nums[dq.back()])){
+            dq.pop_back();
+        }
+
+        //push the maximum elemnt ka index of next  k window
+        dq.push_back(i);
+
+        //curr window ka ans store 
+         ans.push_back(nums[dq.front()]);
+    }
+
+    return ans;
+    }
+};
