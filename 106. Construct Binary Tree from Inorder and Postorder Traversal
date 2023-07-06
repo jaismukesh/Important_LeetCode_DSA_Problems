@@ -1,0 +1,48 @@
+class Solution {
+public:
+
+
+int findPosition(vector<int>& inorder,int &n,int &Element){
+  for(int i=0;i<n;i++){
+    if(inorder[i]==Element){
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+TreeNode* buildTreeFromPostInorder(vector<int>& inorder,vector<int>& postorder,int &size,int &postIndex,int inorderStart,int inorderEnd){
+  //base case
+  if(postIndex<0 || inorderStart>inorderEnd ){
+    return NULL;
+  }
+  // step-1:
+  int Element=postorder[postIndex];
+  postIndex--;
+  int pos=findPosition(inorder,size,Element);
+  TreeNode*root=new TreeNode(Element);
+ //int pos=findPosition(inorder,size,Element);
+
+  //step-2:
+
+   root->right=buildTreeFromPostInorder(inorder,postorder,size,postIndex,pos+1,inorderEnd);
+  root->left=buildTreeFromPostInorder(inorder,postorder,size,postIndex,inorderStart,pos-1);
+  
+  return root;
+
+}
+
+
+ TreeNode* buildTree( vector<int>& inorder,vector<int>& postorder) {
+   TreeNode*root;
+    int size=postorder.size();
+    int inorderStart=0;
+    int inorderEnd=size-1;
+    int postIndex=size-1;
+
+root= buildTreeFromPostInorder(inorder,postorder,size,postIndex,inorderStart,inorderEnd);
+ return root;
+ }
+    
+};
