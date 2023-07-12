@@ -1,0 +1,33 @@
+class Solution
+{
+public:
+
+//maximum element find 
+    int findMax(Node *root)
+    {
+ Node*temp=root;
+   if(temp==NULL){
+       return -1;
+   }
+   
+   while(temp->right !=NULL){
+       temp=temp->right;
+   }
+   return temp->data;
+    }
+    
+ 
+ //find minumu eleemnt .   
+    int findMin(Node *root)
+    {
+        Node*temp=root;
+   if(temp==NULL){
+       return -1;
+   }
+   
+   while(temp->left !=NULL){
+       temp=temp->left;
+   }
+   return temp->data;
+    }
+};
