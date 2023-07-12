@@ -1,0 +1,51 @@
+class Solution {
+public:
+
+   int MaxValue(TreeNode* root) {
+   TreeNode*temp=root;
+   if(temp==NULL){
+       return -1;
+   }
+   
+   while(temp->right !=NULL){
+       temp=temp->right;
+   }
+   return temp->val;
+}
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==NULL)
+          return NULL;
+
+       if(root->val==key){
+           // 4cases
+        // case-1: both child of leaf node is NULL
+        if(root->left==NULL && root->right==NULL){
+            return NULL;
+        }
+        //Case-2: left child is NULL
+        else if(root->left==NULL && root->right!=NULL){
+            return root->right;
+        }
+        // Case-3: right child is NULL
+        else if(root->left!=NULL && root->right==NULL){
+            return root->left;
+        }
+        //Case-4: both child exist
+        else{
+            int InorderPre=MaxValue(root->left);
+            root->val=InorderPre;
+            root->left =deleteNode(root->left,InorderPre);
+            return root;
+        }
+       }
+
+       else if(key>root->val){
+           root->right=deleteNode(root->right,key);
+       }
+
+       else{
+           root->left= deleteNode(root->left, key);
+       }
+       return root;
+    }
+};
