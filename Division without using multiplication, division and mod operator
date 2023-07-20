@@ -1,0 +1,25 @@
+class Solution
+{
+    public:
+    long long divide(long long dividend, long long divisor) 
+    {
+     int sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
+       dividend = abs(dividend);
+         divisor = abs(divisor);
+       long long s=0;
+       long long e=dividend;
+       long long ans=0;
+       while(s<=e){
+          long long mid=s+(e-s)/2;
+          
+          if(mid*divisor<=dividend){
+              ans=mid;
+              s=mid+1;
+          }
+          else{
+              e=mid-1;
+          }
+       }
+       return ans*sign;
+    }
+};
