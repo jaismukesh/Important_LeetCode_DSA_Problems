@@ -1,0 +1,25 @@
+
+class Solution
+{
+    public:
+    //Function to return the minimum cost of connecting the ropes.
+    long long minCost(long long arr[], long long n) {
+        
+    priority_queue<long long,vector<long long>,greater<long long>>MinHeap;
+       for(int i=0;i<n;i++){
+       MinHeap.push(arr[i]);    
+       }
+       
+       long long  totalcost=0;
+       while(MinHeap.size()>1){
+           long long first=MinHeap.top();
+           MinHeap.pop();
+           long long second=MinHeap.top();
+           MinHeap.pop();
+           
+           totalcost+=first+second;
+           MinHeap.push(first+second);
+       }
+       return totalcost;
+    }
+};
