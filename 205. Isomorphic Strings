@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+    //mapping of each character of language s to language t
+        int hash1[256]={0};
+    //  stores if t[i] char is alredy map or not
+        int hash2[256]={0};
+
+      for(int i=0;i<s.size();i++){
+          if(hash1[s[i]]==0 && hash2[t[i]]==0){
+              hash1[s[i]]=t[i];
+              hash2[t[i]]=true;
+          }
+      }
+
+      for(int i=0;i<s.size();i++){
+          if(char(hash1[s[i]])!=t[i]) return false;
+
+      }
+      return true;
+    }
+};
