@@ -1,0 +1,76 @@
+Missing and repeating numbers
+// BruteForce TC:O(n^2)
+
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	int repeating=-1;
+    int missing =-1;
+    
+    for(int i=1;i<=n;i++){
+        int count=0;
+
+        for(int j=0;j<n;j++){
+            if(arr[j]==i) count++;
+        }
+
+        if(count==2) repeating=i;
+        else if (count==0) missing =i;
+
+        if(repeating !=-1 && missing !=-1) break;
+    }
+	
+    return{missing,repeating};
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+//BETTER APPROACH TC:O(N) SC:O(N)
+
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+   int hash[n+1]={0};
+
+    for(int i=0;i<n;i++){
+        hash[arr[i]]++;
+    }
+	
+    int missing =-1;
+    int repeating =-1;
+    for(int i=1;i<=n;i++){
+        if(hash[i]==2)repeating=i;
+        else if(hash[i]==0) missing=i;
+        
+        if(missing !=-1 && repeating !=-1)break;
+    }
+
+    return {missing,repeating};
+}
+-------------------------------------------------------------------------------------------------------------------------------
+
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+	long long S1N=(n*(n+1))/2;
+    long long S2N=(n*(n+1)*(2*n+1))/6;
+     long long S1=0,S2=0;
+    for(int i=0;i<n;i++){
+        S1 +=arr[i];
+        S2 +=(long long)arr[i]*(long long)arr[i];
+    }
+
+    long long val1=S1-S1N; //x-y
+    long long val2=S2-S2N;
+    val2=val2/val1;   //x+y
+    long long x=(val1+val2)/2;
+    long long y=(x-val1);
+     return {(int)x ,(int)y};
+    
+}
